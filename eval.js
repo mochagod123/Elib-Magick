@@ -1,0 +1,1 @@
+eval(localStorage.getItem("code"));

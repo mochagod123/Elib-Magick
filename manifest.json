@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Elib Magick",
+  "version": "1.0.3",
+  "description": "このプラグインは、eライブラリーでチートを使用します。",
+  "content_scripts": [{
+    "matches": ["https://ela.education.ne.jp/students/*"],
+    "run_at": "document_end",
+    "all_frames": true,
+    "js": ["content-script.js"]
+  }],
+  "web_accessible_resources": [
+    {
+      "resources": ["menu.js", "anser.js", "eval.js", "home.js"],
+      "matches": ["https://ela.education.ne.jp/*"]
+    }
+  ]
+}
