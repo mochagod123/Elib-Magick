@@ -11,7 +11,7 @@
   }],
   "web_accessible_resources": [
     {
-      "resources": ["menu.js", "anser.js", "eval.js", "home.js"],
+      "resources": ["js/*.js", "css/*.css"],
       "matches": ["https://ela.education.ne.jp/*"]
     }
   ]

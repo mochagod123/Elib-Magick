@@ -44,7 +44,7 @@ function window_add(title, reason) {
 
       menu.style.background = "linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e)";
       menu.style.backgroundSize = "600% 600%";
-      menu.style.animation = "gradientMove 10s ease infinite";
+      menu.style.animation = "gradientMove 5s ease infinite";
 
       menu.innerHTML = `
         <h1>${title}<button style="
@@ -96,33 +96,7 @@ function window_add(title, reason) {
 }
 
 function replace_name() {
-	try {
-		if (localStorage.getItem("gisou") == "0") {
-			return;
-		}
-		var name = document.getElementsByClassName("name")[0]
-		if (name == null) {
-			return;
-		}
-		name.innerHTML = `<dd>${localStorage.getItem("name")}</dd>`;
-	} catch {
-		return;
-	}
-}
-
-function replace_school() {
-	try {
-		if (localStorage.getItem("gisou") == "0") {
-			return;
-		}
-		var name = document.getElementsByClassName("section")[0]
-		if (name == null) {
-			return;
-		}
-		name.innerHTML = `<dd>${localStorage.getItem("school")}</dd>`;
-	} catch {
-		return;
-	}
+	injectScriptFile("js/main.js");
 }
 
 function replace_drilljs() {
@@ -131,7 +105,19 @@ function replace_drilljs() {
 }
 
 function replace_homejs() {
-	injectScriptFile("home.js");
+	injectScriptFile("js/home.js");
+}
+
+function replace_lookjs() {
+	injectScriptFile("js/lookingback.js")
+}
+
+function inject_gui() {
+	injectScriptFile("js/gui/toast.js");
+	injectScriptFile("js/gui/window.js");
+	injectScriptFile("js/gui/guitest.js");
+
+	injectScriptFile("js/gui/button.js")
 }
 
 function main() {
@@ -141,10 +127,6 @@ function main() {
 
 	if (localStorage.getItem("ans") === null) {
 		localStorage.setItem("ans", "1");
-	};
-
-	if (localStorage.getItem("code") === null) {
-		localStorage.setItem("code", `console.log('Ready.')`);
 	};
 
 	if (localStorage.getItem("name") === null) {
@@ -159,16 +141,38 @@ function main() {
 		localStorage.setItem("gisou", `0`);
 	};
 
+	if (localStorage.getItem("stydy_day") === null) {
+		localStorage.setItem("stydy_day", `0`);
+	};
+
+	if (localStorage.getItem("stydy_count") === null) {
+		localStorage.setItem("stydy_count", `0`);
+	};
+
+	if (localStorage.getItem("study_manten") === null) {
+		localStorage.setItem("study_manten", `0`);
+	};
+
+	if (localStorage.getItem("stydy_day_length") === null) {
+		localStorage.setItem("stydy_day_length", `0`);
+	};
+
+	if (localStorage.getItem("stydy_count_length") === null) {
+		localStorage.setItem("stydy_count_length", `0`);
+	};
+
+	if (localStorage.getItem("study_manten_length") === null) {
+		localStorage.setItem("study_manten_length", `0`);
+	};
+
 	const jsInitCheckTimer = setInterval(jsLoaded, 100);
   
 	function jsLoaded() {
 	  	if (document.readyState !== "complete") return;
 	  	clearInterval(jsInitCheckTimer);
 
-		if (localStorage.getItem("code") !== null) {
-			injectScriptFile("eval.js");
-		}
-  
+		inject_gui();
+
 	  	if (window.location.href === "https://ela.education.ne.jp/students/home") {
 			replace_homejs();
 
@@ -181,7 +185,7 @@ function main() {
 			
 			const labelDiv = document.createElement("div");
 			labelDiv.className = "button-label";
-			labelDiv.innerHTML = "<ruby>ハックメニュー</ruby>";
+			labelDiv.innerHTML = "<ruby>答え表示設定</ruby>";
 			button.appendChild(labelDiv);
 			
 			const iconWrap = document.createElement("div");
@@ -199,7 +203,7 @@ function main() {
 
 			if (hackmenu) {
 				hackmenu.addEventListener("click", () => {
-					injectScriptFile("menu.js");
+					injectScriptFile("js/menu.js");
 				});
 			}
 
@@ -211,7 +215,6 @@ function main() {
 			}
 
 			replace_name();
-			replace_school();
 		}
 		else if (window.location.href == "https://ela.education.ne.jp/students/lookinback") {
 			var hack_menu = document.getElementsByTagName("menu")[0];
@@ -223,7 +226,7 @@ function main() {
 			
 			const labelDiv = document.createElement("div");
 			labelDiv.className = "button-label";
-			labelDiv.innerHTML = "<ruby>ハックメニュー</ruby>";
+			labelDiv.innerHTML = "<ruby>答え表示設定</ruby>";
 			button.appendChild(labelDiv);
 			
 			const iconWrap = document.createElement("div");
@@ -241,7 +244,7 @@ function main() {
 
 			if (hackmenu) {
 				hackmenu.addEventListener("click", () => {
-					injectScriptFile("menu.js");
+					injectScriptFile("js/menu.js");
 				});
 			}
 
@@ -252,11 +255,10 @@ function main() {
 			a.innerHTML = "<img src=" + localStorage.getItem("gajet") + "></img>"
 
 			replace_name();
-			replace_school();
+			replace_lookjs();
 		} else if (window.location.href.includes('https://ela.education.ne.jp/students/questions/question')) {
 			try {
 				replace_name();
-				replace_school();
 				replace_drilljs();
 
 				if (localStorage.getItem("ans") == "1") {
@@ -265,7 +267,7 @@ function main() {
 					var a = document.getElementsByClassName("copyright")[0];
 					a.innerHTML = `<a href='javascript:alert(drill.href.api_token)'>Tokenを見る</a>`
 				} else if (localStorage.getItem("ans") == "2") {
-					injectScriptFile("anser.js");
+					injectScriptFile("js/anser.js");
 				}
 
 				var hack_menu = document.getElementsByTagName("menu")[0];
@@ -277,7 +279,7 @@ function main() {
 				
 				const labelDiv = document.createElement("div");
 				labelDiv.className = "button-label";
-				labelDiv.innerHTML = "<ruby>ハックメニュー</ruby>";
+				labelDiv.innerHTML = "<ruby>答え表示設定</ruby>";
 				button.appendChild(labelDiv);
 				
 				const iconWrap = document.createElement("div");
@@ -295,7 +297,7 @@ function main() {
 	
 				if (hackmenu) {
 					hackmenu.addEventListener("click", () => {
-						injectScriptFile("menu.js");
+						injectScriptFile("js/menu.js");
 					});
 				}
 			} catch(e) {
@@ -303,15 +305,38 @@ function main() {
 			}
 		} else {
 			replace_name();
-			replace_school();
 		}
 	}
   }  
 function keypress_ivent(e) {
-	//ここにいれる
-	if (e.key == "Escape") {
-		injectScriptFile("menu.js");
-	}
+
 }
 window.addEventListener('keydown', keypress_ivent);
 window.addEventListener("load", main, false);
+
+window.addEventListener('DOMContentLoaded', () => {
+	Array.from(document.getElementsByTagName("link")).forEach(element => {
+		if (element.href.includes('reset.css')) {
+		  element.remove()
+		  const sc = document.createElement("link");
+		  sc.rel = 'stylesheet';
+		  sc.type = 'text/css';
+		  sc.href = chrome.runtime.getURL("css/reset.css");
+		  document.head.appendChild(sc);
+		  return;
+		}
+	  });
+
+	Array.from(document.getElementsByTagName("link")).forEach(element => {
+		if (element.href.includes('base.css')) {
+		  element.remove()
+		  const sc = document.createElement("link");
+		  sc.rel = 'stylesheet';
+		  sc.type = 'text/css';
+		  sc.href = chrome.runtime.getURL("css/base.css");
+		  document.head.appendChild(sc);
+		  return;
+		}
+	  });
+});
+  
