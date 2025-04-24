@@ -120,6 +120,39 @@ function inject_gui() {
 	injectScriptFile("js/gui/button.js")
 }
 
+function add_buttons_home(id, button_name, emoji, jump) {
+	var hack_menu = document.getElementsByTagName("menu")[0];
+
+	const button = document.createElement("button");
+	button.className = "icon-button conf nor";
+	button.id = `header-${id}`;
+	button.type = "button";
+	
+	const labelDiv = document.createElement("div");
+	labelDiv.className = "button-label";
+	labelDiv.innerHTML = `<ruby>${button_name}</ruby>`;
+	button.appendChild(labelDiv);
+	
+	const iconWrap = document.createElement("div");
+	iconWrap.className = "icon-wrap";
+	
+	const iconSpan = document.createElement("span");
+	iconSpan.textContent = emoji;
+	iconWrap.appendChild(iconSpan);
+	
+	button.appendChild(iconWrap);
+	
+	hack_menu.appendChild(button);
+
+	const hackmenu = document.querySelector(`#header-${id}`);
+
+	if (hackmenu) {
+		hackmenu.addEventListener("click", () => {
+			window.location.href = chrome.runtime.getURL(jump)
+		});
+	}
+}
+
 function main() {
 	if (localStorage.getItem("gajet") === null) {
 		localStorage.setItem("gajet", "https://ela.education.ne.jp/images/grows/grows_2025/gr001.png");
@@ -200,6 +233,8 @@ function main() {
 			hack_menu.appendChild(button);
 	
 			const hackmenu = document.querySelector("#header-hack");
+
+			add_buttons_home("callcenter0", "お問い合わせ", "☎️", "html/support.html");
 
 			if (hackmenu) {
 				hackmenu.addEventListener("click", () => {

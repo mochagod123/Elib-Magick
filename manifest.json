@@ -11,7 +11,7 @@
   }],
   "web_accessible_resources": [
     {
-      "resources": ["js/*.js", "css/*.css"],
+      "resources": ["js/*.js", "css/*.css", "html/*html"],
       "matches": ["https://ela.education.ne.jp/*"]
     }
   ]
