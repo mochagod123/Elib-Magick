@@ -9,9 +9,17 @@
     "all_frames": true,
     "js": ["content-script.js"]
   }],
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "web_accessible_resources": [
     {
-      "resources": ["js/*.js", "css/*.css", "html/*html"],
+      "resources": ["js/*.js", "css/*.css", "html/*html", "images/*.png", "json/*.json"],
       "matches": ["https://ela.education.ne.jp/*"]
     }
   ]

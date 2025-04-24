@@ -153,6 +153,10 @@ function add_buttons_home(id, button_name, emoji, jump) {
 	}
 }
 
+function privacy_inject() {
+	
+  }  
+
 function main() {
 	if (localStorage.getItem("gajet") === null) {
 		localStorage.setItem("gajet", "https://ela.education.ne.jp/images/grows/grows_2025/gr001.png");
@@ -205,6 +209,8 @@ function main() {
 	  	clearInterval(jsInitCheckTimer);
 
 		inject_gui();
+
+		privacy_inject();
 
 	  	if (window.location.href === "https://ela.education.ne.jp/students/home") {
 			replace_homejs();
