@@ -1,3 +1,18 @@
+var original_name = "";
+var original_school_name = "";
+
+function get_original_data() {
+  try {
+    original_name = document.getElementsByClassName("name")[0].getElementsByTagName("dd")[0].textContent;
+    original_school_name = document.getElementsByClassName("section")[0].getElementsByTagName("dd")[0].textContent;
+  } catch (e) {
+    return
+  }
+
+}
+
+get_original_data();
+
 function replace_name() {
 	try {
 		if (localStorage.getItem("gisou") == "0") {
