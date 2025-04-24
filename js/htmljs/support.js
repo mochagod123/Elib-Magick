@@ -9,3 +9,7 @@ document.getElementById('downloadso').addEventListener('click', function() {
 document.getElementById('update').addEventListener('click', function() {
     window.location.href = chrome.runtime.getURL("html/update.html");
 });
+
+document.getElementById('dokujiplugin').addEventListener('click', function() {
+    window.location.href = chrome.runtime.getURL("html/debug.html");
+});

@@ -19,7 +19,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["js/*.js", "css/*.css", "html/*html", "images/*.png", "json/*.json"],
+      "resources": ["js/*.js", "css/*.css", "html/*html", "images/*.png", "images/*.jpg"],
       "matches": ["https://ela.education.ne.jp/*"]
     }
   ]

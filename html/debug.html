@@ -2,7 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <title>
-            生徒TOP - サポート先
+            生徒TOP - テンプレート
         </title>
         <link rel="icon" type="image/x-icon" href="https://ela.education.ne.jp/favicon.ico?rtp=1745395">
         <link href="https://ela.education.ne.jp/css/jquery/jquery-ui.css" rel="stylesheet" type="text/css">
@@ -21,53 +21,44 @@
                 <div class="tiles_3 tilesGap_30">
                     <div class="grid_item">
                         <div class="left-side">
-                        <h3>Discordでお問い合わせ</h3>
+                        <h3>開発者向けサイト</h3>
                         </div><br>
-                        <div class="button-fullwidth nor" id="supportserver">
-                            <span class="contents">公式サポートサーバー</span>
-                        </div><br>
+                        <div class="button-fullwidth nor" id="debugbutton">
+                            <span class="contents">サイトのテンプレート</span>
+                        </div>
                     </div>
 
                     <div class="grid_item">
                         <div class="left-side">
-                        <h3>ソースコード</h3></div><br>
+                        <h3>開発方法</h3>
+                        </div><br>
+                        以下のボタンを押して<br>ソースコードをダウンロード。<br><br>
                         <div class="button-fullwidth nor" id="downloadso">
                             <span class="contents">ダウンロード</span>
                         </div><br><br>
-                        <div class="button-fullwidth nor" id="update">
-                            <span class="contents">アップデート方法</span>
-                        </div><br>
-                    </div>
-
-                    <div class="grid_item">
-                        <div class="left-side">
-                        <h3>製作者 (Neko)</h3>
-                        </div><br>
-                        14歳。中学生です。<br>
-                        <img src="../images/owner.png" width="100" height="100" style="border-radius: 30px;">
+                        そうしたら展開して、あとは<br>自由にいじってください。
                     </div>
                 </div>
+
                 <div class="tiles_3 tilesGap_30">
                     <div class="grid_item">
                         <div class="left-side">
-                        <h3>Discordの様子</h3>
+                        <h3>ファイル構成</h3>
                         </div><br>
-                        <iframe src="https://discord.com/widget?id=1364198749437689937&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-                    </div>
-
-                    <div class="grid_item">
-                        <div class="left-side">
-                        <h3>独自のプラグイン開発</h3>
-                        </div><br>
-                        <div class="button-fullwidth nor" id="dokujiplugin">
-                            <span class="contents">開発用サイト</span>
-                        </div><br><br>
-                        注意！<br>独自のプラグイン<br>を開発するには、<br>
-                        HTMLとJavascriptの知識<br>がある必要があります。
+                        <p>
+                            「/css/*.css」サイトのcssがあります。<br>
+                            「/html/*.html」サイトのhtmlがあります。<br>
+                            「/html/*.png or *.jpg」サイトに使われている画像があります。<br>
+                            「/js/*js」基本的なjsコードがあります。<br>
+                            「/js/htmljs/*js」サイトに使われるjsがあります。<br>
+                            「/js/gui/*js」ボタン追加などのコードがあります。<br>
+                            「content-script.js」サイトに影響するコードがあります。<br>
+                            「manifest.json」プラグインの名前などが書いてあります。
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="../js/htmljs/support.js"></script>
+        <script src="../js/htmljs/debug.js"></script>
     </body>
 </html>
