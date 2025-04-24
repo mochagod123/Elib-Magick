@@ -1,3 +1,7 @@
 document.getElementById('supportserver').addEventListener('click', function() {
     window.location.href = 'https://discord.gg/2FZt79WAHr';
 });
+
+document.getElementById('downloadso').addEventListener('click', function() {
+    window.location.href = 'https://github.com/mochagod123/Elib-Magick';
+});
