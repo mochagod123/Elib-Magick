@@ -114,10 +114,11 @@ function replace_lookjs() {
 
 function inject_gui() {
 	injectScriptFile("js/gui/toast.js");
+	injectScriptFile("js/gui/marquee.js");
 	injectScriptFile("js/gui/window.js");
 	injectScriptFile("js/gui/guitest.js");
 
-	injectScriptFile("js/gui/button.js")
+	injectScriptFile("js/gui/button.js");
 }
 
 function add_buttons_home(id, button_name, emoji, jump) {
