@@ -109,7 +109,21 @@ function replace_homejs() {
 }
 
 function replace_lookjs() {
-	injectScriptFile("js/lookingback.js")
+	const gadgets_html = chrome.runtime.getURL("html/gadgets.html");
+
+	const script = document.createElement("script");
+	script.src = chrome.runtime.getURL("js/lookingback.js");
+	script.onload = function () {
+		window.postMessage(
+			{
+			  type: "ELIBMAGICK_GADGETS_EDIT_URL",
+			  url: gadgets_html
+			},
+			"*"
+		  );
+		this.remove();
+	};
+	(document.head || document.documentElement).appendChild(script);
 }
 
 function inject_gui() {
@@ -355,6 +369,28 @@ function keypress_ivent(e) {
 }
 window.addEventListener('keydown', keypress_ivent);
 window.addEventListener("load", main, false);
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	if (request.message === "getLocalGadgets") {
+	  const value = localStorage.getItem(request.key);
+
+	  sendResponse({ value: value });
+  
+	  return true;
+	} else if (request.message === "setLocalGadgets") {
+		const value = localStorage.setItem(request.key, request.value);
+
+		var gaj = document.getElementsByClassName("gadget-growimage")[0];
+
+		document.getElementsByClassName("gadget-growimage")[0].getElementsByTagName("img")[0].remove();
+		
+		gaj.innerHTML = "<img src=" + localStorage.getItem("gajet") + "></img>"
+
+		sendResponse({ value: request.value });
+	
+		return true;
+	}
+  });  
 
 window.addEventListener('DOMContentLoaded', () => {
 	Array.from(document.getElementsByTagName("link")).forEach(element => {

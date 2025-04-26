@@ -12,7 +12,9 @@
   "permissions": [
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
-    "scripting"
+    "scripting",
+    "storage",
+    "tabs"
   ],
   "background": {
     "service_worker": "background.js"
