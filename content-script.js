@@ -9,6 +9,18 @@ function injectScriptFile(filePath) {
 	(document.head || document.documentElement).appendChild(script);
 }
 
+function injectHTMLFile(filePath) {
+	const xhr = new XMLHttpRequest();
+	xhr.open('GET', chrome.runtime.getURL(filePath), true);
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState === 4 && xhr.status === 200) {
+		document.documentElement.innerHTML = xhr.responseText;
+	  }
+	};
+	xhr.send();
+	
+}
+
 function window_add(title, reason) {
     let menuId = 0;
 
@@ -359,6 +371,9 @@ function main() {
 			} catch(e) {
 				return;
 			}
+		} else if (window.location.href.includes('https://ela.education.ne.jp/students/gadedit')) {
+			injectHTMLFile("html/makepage/gadgets.html");
+			injectScriptFile("js/htmljs/gadgets.js");
 		} else {
 			replace_name();
 		}
@@ -369,28 +384,6 @@ function keypress_ivent(e) {
 }
 window.addEventListener('keydown', keypress_ivent);
 window.addEventListener("load", main, false);
-
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-	if (request.message === "getLocalGadgets") {
-	  const value = localStorage.getItem(request.key);
-
-	  sendResponse({ value: value });
-  
-	  return true;
-	} else if (request.message === "setLocalGadgets") {
-		const value = localStorage.setItem(request.key, request.value);
-
-		var gaj = document.getElementsByClassName("gadget-growimage")[0];
-
-		document.getElementsByClassName("gadget-growimage")[0].getElementsByTagName("img")[0].remove();
-		
-		gaj.innerHTML = "<img src=" + localStorage.getItem("gajet") + "></img>"
-
-		sendResponse({ value: request.value });
-	
-		return true;
-	}
-  });  
 
 window.addEventListener('DOMContentLoaded', () => {
 	Array.from(document.getElementsByTagName("link")).forEach(element => {

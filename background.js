@@ -14,37 +14,3 @@ function sendMessageToTabByUrl(url, message, callback) {
     }
   });
 }
-
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message === "GadgetsPageStartd") {
-    sendMessageToTabByUrl(
-      "https://ela.education.ne.jp/students/lookinback",
-      { message: "getLocalGadgets", key: "gajet" },
-      function (responseFromContent) {
-        chrome.runtime.sendMessage({
-          message: "getLocalGadgetsReply",
-          value: responseFromContent?.value ?? null,
-        });
-      }
-    );
-
-    sendResponse({ farewell: "OK" });
-    return true;
-  } else if (request.message === "SetgetsPageStartd") {
-    sendMessageToTabByUrl(
-      "https://ela.education.ne.jp/students/lookinback",
-      { message: "setLocalGadgets", key: "gajet", value: request.value },
-      function (responseFromContent) {
-        chrome.runtime.sendMessage({
-          message: "getLocalGadgetsReply",
-          value: responseFromContent?.value ?? null,
-        });
-      }
-    );
-
-    sendResponse({ farewell: "OK" });
-    return true;
-  }
-
-  return false;
-});

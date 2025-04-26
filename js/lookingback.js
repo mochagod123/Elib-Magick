@@ -212,16 +212,6 @@ if (study_manten_medal) {
     });
 }
 
-var ELIBMAGICK_GADGETS_EDIT_URL = null;
-
-window.addEventListener("message", (event) => {
-  if (event.source !== window) return;
-  if (event.data?.type === "ELIBMAGICK_GADGETS_EDIT_URL") {
-    ELIBMAGICK_GADGETS_EDIT_URL = event.data.url;
-    console.log("受け取ったURL:", ELIBMAGICK_GADGETS_EDIT_URL);
-  }
-});
-
 if (gaget_image) {
   gaget_image.addEventListener("click", () => {
     window_add("植物の画像編集", `
@@ -236,7 +226,7 @@ var set_max = button_1_add("最大化", set_gajet_set, '33');
 document.getElementById("gui_button").appendChild(set_max);
 var set_min = button_1_add("最小化", set_gajet_set, '01');
 document.getElementById("gui_button").appendChild(set_min);
-var set_min = button_1_add("詳細", window.open, ELIBMAGICK_GADGETS_EDIT_URL);
+var set_min = button_1_add("詳細", window.open, "https://ela.education.ne.jp/students/gadedit");
 document.getElementById("gui_button2").appendChild(set_min);
   });
 }

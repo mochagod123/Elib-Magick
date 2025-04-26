@@ -75,12 +75,12 @@ function deSVG(selector, removeInlineCss) {
     // sort images array by image url
     while (imagesLength--) {
         var _img = images[imagesLength],
-          _imgURL;
+        _imgURL;
 
         if (_img.getAttribute('data-src')) {
-          _imgURL = _img.getAttribute('data-src')
+        _imgURL = _img.getAttribute('data-src')
         } else {
-          _imgURL = _img.getAttribute('src')
+        _imgURL = _img.getAttribute('src')
         }
 
         if (sortImages[_imgURL]) {
@@ -100,59 +100,31 @@ function deSVG(selector, removeInlineCss) {
 
 deSVG('.svg-inline-true', true);
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    console.log("Received message from service worker:", request);
-    if (request.message === "getLocalGadgetsReply") {
-        var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
-        gad.innerHTML = "<img src=" + request.value + ">"
-        document.getElementById("gajeturl").value = request.value;
-        console.log("取得したガジェット情報:", request.value);
-    } else if (request.message === "setLocalGadgetsReply") {
-        var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
-        gad.innerHTML = "<img src=" + request.value + ">"
-        document.getElementById("gajeturl").value = request.value;
-        console.log("取得したガジェット情報:", request.value);
-    }
-  });
-  
-  document.getElementsByClassName("gadget-growimage button nor")[0].addEventListener('click', function() {
-    window.open(document.getElementsByClassName("gadget-growimage button nor")[0].getElementsByTagName("img")[0].src)
-  })
+var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
+gad.innerHTML = "<img src=" + localStorage.getItem("gajet") + ">"
+document.getElementById("gajeturl").value = localStorage.getItem("gajet");
 
-  chrome.runtime.sendMessage({ message: "GadgetsPageStartd" }, function (response) {
-    if (response) {
-      console.log("service workerからの応答:", response.farewell);
-    } else {
-      console.log("応答はありません。");
-    }
-  });
+document.getElementsByClassName("gadget-growimage button nor")[0].addEventListener('click', function() {
+window.open(document.getElementsByClassName("gadget-growimage button nor")[0].getElementsByTagName("img")[0].src)
+})
 
 document.getElementById('max').addEventListener('click', function() {
-    chrome.runtime.sendMessage({ message: "SetgetsPageStartd", value: "https://ela.education.ne.jp/images/grows/grows_2025/gr033.png" }, function (response) {
-        if (response) {
-          console.log("service workerからの応答:", response.farewell);
-        } else {
-          console.log("応答はありません。");
-        }
-      });
+localStorage.setItem('gajet', `https://ela.education.ne.jp/images/grows/grows_2025/gr033.png`);
+var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
+gad.innerHTML = "<img src=" + localStorage.getItem("gajet") + ">"
+document.getElementById("gajeturl").value = localStorage.getItem("gajet");
 });
 
 document.getElementById('min').addEventListener('click', function() {
-    chrome.runtime.sendMessage({ message: "SetgetsPageStartd", value: "https://ela.education.ne.jp/images/grows/grows_2025/gr001.png" }, function (response) {
-        if (response) {
-          console.log("service workerからの応答:", response.farewell);
-        } else {
-          console.log("応答はありません。");
-        }
-      });
+localStorage.setItem('gajet', `https://ela.education.ne.jp/images/grows/grows_2025/gr001.png`);
+var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
+gad.innerHTML = "<img src=" + localStorage.getItem("gajet") + ">"
+document.getElementById("gajeturl").value = localStorage.getItem("gajet");
 });
 
 document.getElementById('set').addEventListener('click', function() {
-    chrome.runtime.sendMessage({ message: "SetgetsPageStartd", value: document.getElementById("gajeturl").value }, function (response) {
-        if (response) {
-          console.log("service workerからの応答:", response.farewell);
-        } else {
-          console.log("応答はありません。");
-        }
-      });
+localStorage.setItem('gajet', document.getElementById("gajeturl").value);
+var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
+gad.innerHTML = "<img src=" + localStorage.getItem("gajet") + ">"
+document.getElementById("gajeturl").value = localStorage.getItem("gajet");
 });
