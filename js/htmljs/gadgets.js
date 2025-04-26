@@ -115,6 +115,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
   });
   
+  document.getElementsByClassName("gadget-growimage button nor")[0].addEventListener('click', function() {
+    window.open(document.getElementsByClassName("gadget-growimage button nor")[0].getElementsByTagName("img")[0].src)
+  })
+
   chrome.runtime.sendMessage({ message: "GadgetsPageStartd" }, function (response) {
     if (response) {
       console.log("service workerからの応答:", response.farewell);
