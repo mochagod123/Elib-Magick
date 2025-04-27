@@ -180,11 +180,24 @@ function add_buttons_home(id, button_name, emoji, jump) {
 	}
 }
 
+function replace_backg() {
+	try {
+		if (localStorage.getItem("backg") == `linear-gradient(to bottom, var(--cs-key-03), var(--cs-basic-04) 40%, var(--cs-basic-02))`) {
+			return;
+		}
+		document.body.style.setProperty("background-size", "100%")
+		document.body.style.setProperty("background-repeat", "repeat")
+		document.body.style.setProperty("background-image", localStorage.getItem("backg"))
+	} catch {
+		return;
+	}
+}
+
 function privacy_inject() {
 	
-  }  
+}  
 
-function main() {
+function set_def_setting() {
 	if (localStorage.getItem("gajet") === null) {
 		localStorage.setItem("gajet", "https://ela.education.ne.jp/images/grows/grows_2025/gr001.png");
 	};
@@ -229,6 +242,14 @@ function main() {
 		localStorage.setItem("study_manten_length", `0`);
 	};
 
+	if (localStorage.getItem("backg") === null) {
+		localStorage.setItem("backg", `linear-gradient(to bottom, var(--cs-key-03), var(--cs-basic-04) 40%, var(--cs-basic-02))`);
+	};
+}
+
+function main() {
+	set_def_setting();
+
 	const jsInitCheckTimer = setInterval(jsLoaded, 100);
   
 	function jsLoaded() {
@@ -238,6 +259,8 @@ function main() {
 		inject_gui();
 
 		privacy_inject();
+
+		replace_backg();
 
 	  	if (window.location.href === "https://ela.education.ne.jp/students/home") {
 			replace_homejs();
@@ -374,6 +397,15 @@ function main() {
 		} else if (window.location.href.includes('https://ela.education.ne.jp/students/gadedit')) {
 			injectHTMLFile("html/makepage/gadgets.html");
 			injectScriptFile("js/htmljs/gadgets.js");
+		} else if (window.location.href.includes('https://ela.education.ne.jp/students/theme_editor')) {
+			injectHTMLFile("html/makepage/theme.html");
+			const script = document.createElement("script");
+			script.src = chrome.runtime.getURL("js/htmljs/theme.js");
+			script.onload = function () {
+			  this.remove();
+			  window.postMessage({ type: "ADDVariable", variablename: "csseditorurl", value: chrome.runtime.getURL("html/csseditor.html") }, "*");
+			};
+			(document.head || document.documentElement).appendChild(script);
 		} else {
 			replace_name();
 		}
@@ -401,6 +433,15 @@ const replaceCss = (oldFileName, newFilePath) => {
 	};
   
 replaceCss('student-common.css', 'css/student-common.css');
+
+
+chrome.storage.local.get("css", function (value) {
+	if (value.css == undefined) {} else if (value.css == "") {} else {
+		const newstyle = document.createElement('style');
+		newstyle.textContent = value.css
+		document.head.appendChild(newstyle)
+	}
+})
 
 // document.body.style.setProperty("background-size", "100%")
 // document.body.style.setProperty("background-repeat", "repeat")

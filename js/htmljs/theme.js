@@ -75,12 +75,12 @@ function deSVG(selector, removeInlineCss) {
     // sort images array by image url
     while (imagesLength--) {
         var _img = images[imagesLength],
-          _imgURL;
+        _imgURL;
 
         if (_img.getAttribute('data-src')) {
-          _imgURL = _img.getAttribute('data-src')
+        _imgURL = _img.getAttribute('data-src')
         } else {
-          _imgURL = _img.getAttribute('src')
+        _imgURL = _img.getAttribute('src')
         }
 
         if (sortImages[_imgURL]) {
@@ -100,18 +100,38 @@ function deSVG(selector, removeInlineCss) {
 
 deSVG('.svg-inline-true', true);
 
-document.getElementById('supportserver').addEventListener('click', function() {
-    window.location.href = 'https://discord.gg/2FZt79WAHr';
+if (localStorage.getItem("backg") != `linear-gradient(to bottom, var(--cs-key-03), var(--cs-basic-04) 40%, var(--cs-basic-02))`) {
+    var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
+    gad.innerHTML = "<img src=" + localStorage.getItem("backg").replace("url('", "").replace("')", "") + ">"
+    document.getElementById("backurl").value = localStorage.getItem("backg");
+}
+
+document.getElementById('set').addEventListener('click', function() {
+    localStorage.setItem('backg', `url('${document.getElementById("backurl").value}')`);
+    var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
+    gad.innerHTML = "<img src=" + document.getElementById("backurl").value + ">"
+    document.getElementById("backurl").value = localStorage.getItem("backg");
 });
 
-document.getElementById('downloadso').addEventListener('click', function() {
-    window.location.href = 'https://github.com/mochagod123/Elib-Magick';
+document.getElementById('reset').addEventListener('click', function() {
+    localStorage.setItem('backg', `linear-gradient(to bottom, var(--cs-key-03), var(--cs-basic-04) 40%, var(--cs-basic-02))`);
+    var gad = document.getElementsByClassName("gadget-growimage button nor")[0];
+    gad.innerHTML = "<img src=" + "https://ela.education.ne.jp/images/grows/grows_2025/gr001.png" + ">"
+    document.getElementById("backurl").value = "";
 });
 
-document.getElementById('update').addEventListener('click', function() {
-    window.location.href = chrome.runtime.getURL("html/update.html");
-});
+window.addEventListener("message", (event) => {
+    if (event.source !== window) return;
+    if (event.data.type === "ADDVariable") {
+      window[event.data.variablename] = event.data.value;
+      console.log("変数追加:", event.data.variablename, event.data.value);
+    }
+  });  
 
-document.getElementById('theme_edit').addEventListener('click', function() {
-    window.location.href = "https://ela.education.ne.jp/students/theme_editor";
+document.getElementById('cssedit').addEventListener('click', function() {
+    window.open(
+        window.csseditorurl,
+        'newWindow',
+        'width=400,height=300,left=100,top=100'
+      );
 });
