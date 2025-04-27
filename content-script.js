@@ -385,29 +385,23 @@ function keypress_ivent(e) {
 window.addEventListener('keydown', keypress_ivent);
 window.addEventListener("load", main, false);
 
-window.addEventListener('DOMContentLoaded', () => {
-	Array.from(document.getElementsByTagName("link")).forEach(element => {
-		if (element.href.includes('reset.css')) {
-		  element.remove()
-		  const sc = document.createElement("link");
-		  sc.rel = 'stylesheet';
-		  sc.type = 'text/css';
-		  sc.href = chrome.runtime.getURL("css/reset.css");
-		  document.head.appendChild(sc);
-		  return;
+const replaceCss = (oldFileName, newFilePath) => {
+	  const links = Array.from(document.getElementsByTagName('link'));
+	  for (const link of links) {
+		if (link.href.includes(oldFileName)) {
+		  link.remove();
+		  const newLink = document.createElement('link');
+		  newLink.rel = 'stylesheet';
+		  newLink.type = 'text/css';
+		  newLink.href = chrome.runtime.getURL(newFilePath);
+		  document.head.appendChild(newLink);
+		  break;
 		}
-	  });
-
-	Array.from(document.getElementsByTagName("link")).forEach(element => {
-		if (element.href.includes('base.css')) {
-		  element.remove()
-		  const sc = document.createElement("link");
-		  sc.rel = 'stylesheet';
-		  sc.type = 'text/css';
-		  sc.href = chrome.runtime.getURL("css/base.css");
-		  document.head.appendChild(sc);
-		  return;
-		}
-	  });
-});
+	  }
+	};
   
+replaceCss('student-common.css', 'css/student-common.css');
+
+// document.body.style.setProperty("background-size", "100%")
+// document.body.style.setProperty("background-repeat", "repeat")
+// document.body.style.setProperty("background-image", "url('https://cimg.kgl-systems.io/camion/files/24037/thumbnail_dQPt.png?x=1280')")
