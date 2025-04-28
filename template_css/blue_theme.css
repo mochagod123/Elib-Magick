@@ -1,0 +1,45 @@
+header .login-name::before { background-image: linear-gradient(to bottom, #34c3eb, #97dcf0);}
+
+h3 {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 0.5em 1em;
+    border-radius: 50vw;
+    border-color: #0852ff;
+    background-color: #0852ff;
+    color: var(--cs-font-lite);
+    font-weight: normal;
+    font-size: 1.1em;
+    line-height: normal;
+    text-align: left;
+}
+
+.page-home-top .tiles_3 > .grid_item::before {
+    z-index: -1;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    border: 1px solid #08c9ff;
+    border-radius: 20px;
+    background-color: #08c9ff;
+    box-shadow: 0px 0px 5px 0px #e1e4e5;
+    content: "";
+}
+
+.button, .button-fullwidth, .modal .close-btn, .form-wrapper input:is([type=submit], [type=button], [type=reset]), .form-wrapper [type=file] ~ label, .form-wrapper:is(.btn-checkbox, .btn-radio) label, .form-wrapper.textbox input.datebtn:is([readonly=readonly], [readonly=""]), .form-wrapper.select .select-body-wrap, .form-wrapper.btn-select .select-body-wrapper div.select-items, .form-wrapper.file label, .modal .close-btn:is(.nor, .eff) {
+    background-color: #256399;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.page-home-login .notice.content-block, .page-home-top .notice.content-block {
+    border-top: 1px solid var(--cs-basic-01);
+    box-shadow: 0 25px 25px 0 rgba(var(--cs-basic-07-rgb), 0.2) inset;
+    line-height: 1.2;
+    text-align: center;
+}
