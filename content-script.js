@@ -9,6 +9,15 @@ function injectScriptFile(filePath) {
 	(document.head || document.documentElement).appendChild(script);
 }
 
+function injectScriptURL(url) {
+	const script = document.createElement("script");
+	script.src = url;
+	script.onload = function () {
+	  this.remove();
+	};
+	(document.head || document.documentElement).appendChild(script);
+}
+
 function injectHTMLFile(filePath) {
 	const xhr = new XMLHttpRequest();
 	xhr.open('GET', chrome.runtime.getURL(filePath), true);
@@ -247,6 +256,16 @@ function set_def_setting() {
 	};
 }
 
+function apply_plugins() {
+	chrome.storage.local.get("plugins", function (value) {
+		if (value.plugins == undefined) {} else if (value.plugins == "") {} else {
+			value.plugins.split("\n").forEach(element => {
+				injectScriptURL(element);
+			});
+		}
+	})
+}
+
 function main() {
 	set_def_setting();
 
@@ -261,6 +280,10 @@ function main() {
 		privacy_inject();
 
 		replace_backg();
+
+		injectScriptFile("js/plginfo.js");
+
+		apply_plugins();
 
 	  	if (window.location.href === "https://ela.education.ne.jp/students/home") {
 			replace_homejs();

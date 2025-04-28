@@ -43,3 +43,9 @@ h3 {
     line-height: 1.2;
     text-align: center;
 }
+
+body {
+    background-size: 100px;
+    background-repeat: repeat;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQCUM3S9PW6AuD_cM4hUqe32iof2Q-D0qerA&s");
+}

@@ -100,22 +100,23 @@ function deSVG(selector, removeInlineCss) {
 
 deSVG('.svg-inline-true', true);
 
-document.getElementById('supportserver').addEventListener('click', function() {
-    window.location.href = 'https://discord.gg/2FZt79WAHr';
-});
+function save_plugins() {
+    chrome.storage.local.set({"plugins": document.getElementById("plugins").value})
+}
 
-document.getElementById('downloadso').addEventListener('click', function() {
-    window.location.href = 'https://github.com/mochagod123/Elib-Magick';
-});
+function plugins_load() {
+    chrome.storage.local.get("plugins", function (value) {
+        if (value.plugins == undefined) {
+            return;
+        } else if (value.plugins == "") {
+            return;
+        }
+        document.getElementById("plugins").value = value.plugins;
+    });
+}
 
-document.getElementById('update').addEventListener('click', function() {
-    window.location.href = chrome.runtime.getURL("html/update.html");
-});
+plugins_load();
 
-document.getElementById('theme_edit').addEventListener('click', function() {
-    window.location.href = "https://ela.education.ne.jp/students/theme_editor";
-});
-
-document.getElementById('plugins').addEventListener('click', function() {
-    window.location.href = chrome.runtime.getURL("html/plugins.html");
+document.getElementById('save').addEventListener('click', function() {
+    save_plugins();
 });
